@@ -58,10 +58,11 @@ class Material(http.Controller):
         if auth == token:
             domain = []
             data = []
+
             material_obj = request.env["material"].sudo()
-            filter_type = request.httprequest.args.get("material_type")
-            if filter_type:
-                domain += [("type", "=", filter_type)]
+            params = request.httprequest.args
+            if params.get("material_type"):
+                domain += [("type", "=", params.get("material_type"))]
 
             try:
                 materials = material_obj.search(domain)

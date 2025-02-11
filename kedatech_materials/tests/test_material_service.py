@@ -150,10 +150,7 @@ class TestRestAPIMaterials(TestKedatechMaterialsCommon, HttpCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # negative case
-        update_data = {
-            "code": "unit_test_2"
-        }
-        update_url = "%s%s/%s" % (HOST, "/material", 0)
+        delete_url = "%s%s/%s" % (HOST, "/material", 0)
 
-        response = self.opener.delete(update_url, headers=self.headers, data=json.dumps(update_data))
+        response = self.opener.delete(delete_url, headers=self.headers)
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
