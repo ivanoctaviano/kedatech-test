@@ -5,7 +5,7 @@ class TestKedatechMaterialsCommon(HttpCase):
 
     def setUp(self):
         super().setUp()
-        self.static_token = "token_unit_test"
+        self.static_token = "static_token"
         param_obj = self.env["ir.config_parameter"]
         partner_obj = self.env["res.partner"]
         material_obj = self.env["material"]
@@ -14,6 +14,7 @@ class TestKedatechMaterialsCommon(HttpCase):
         self.headers = {
             "Authorization": "Bearer %s" % self.static_token
         }
+        param_obj.get_param("kedatech.static_token")
         self.partner_id = partner_obj.create({
             "name": "Partner Test"
         })

@@ -18,7 +18,7 @@ class Material(http.Controller):
         API for Create Material
         """
         auth = helper.parse_header()
-        token = request.env["ir.config_parameter"].sudo().get_param("kedatech.static_token", "ABC")
+        token = request.env["ir.config_parameter"].sudo().get_param("kedatech.static_token")
 
         if auth == token:
             body = json.loads(request.httprequest.data.decode("utf-8"))
@@ -29,7 +29,7 @@ class Material(http.Controller):
 
             material_obj = request.env["material"].sudo()
             
-            exist_material = material_obj.search([("code","=",body.get("code"))])
+            exist_material = material_obj.search([("code", "=", body.get("code"))])
             if exist_material:
                 return helper.response(code=400, success=False, data={"code": "Already exists"})
 
@@ -100,11 +100,11 @@ class Material(http.Controller):
             material_obj = request.env["material"].sudo()
             body = json.loads(request.httprequest.data.decode("utf-8"))
             
-            exist_material = material_obj.search([("id","=",material_id)])
+            exist_material = material_obj.search([("id", "=", material_id)])
             if not exist_material:
                 return helper.response(code=400, success=False, data={"material": "material id not found"})
 
-            exist_material_code = material_obj.search([("id","!=",material_id),("code","=",body.get("code"))])
+            exist_material_code = material_obj.search([("id","!=",material_id),("code", "=", body.get("code"))])
             if exist_material_code:
                 return helper.response(code=400, success=False, data={"code": "Already exists"})
 
@@ -138,7 +138,7 @@ class Material(http.Controller):
 
             material_obj = request.env["material"].sudo()
             
-            exist_material = material_obj.search([("id","=",material_id)])
+            exist_material = material_obj.search([("id", "=", material_id)])
             if not exist_material:
                 return helper.response(code=400, success=False, data={"material": "material id not found"})
 
@@ -202,7 +202,7 @@ class Material(http.Controller):
             if not isinstance(body.get("supplier_id"), int):
                 invalid["supplier_id"] = "Is not an integer"
             else:
-                partner_id = request.env["res.partner"].sudo().search([("id","=",body.get("supplier_id"))])
+                partner_id = request.env["res.partner"].sudo().search([("id", "=", body.get("supplier_id"))])
                 if not partner_id:
                     invalid["supplier_id"] = "Not found"
             vals["related_supplier_id"] = body.get("supplier_id")
