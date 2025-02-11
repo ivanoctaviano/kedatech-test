@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="static_token" model="ir.config_parameter">
+            <field name="key">kedatech.static_token</field>
+            <field name="value">ABC</field>
+        </record>
+
+    </data>
+</odoo>

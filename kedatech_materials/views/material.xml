@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_material_filter" model="ir.ui.view">
+        <field name="name">material.filter</field>
+        <field name="model">material</field>
+        <field name="arch" type="xml">
+            <search string="Search Material">
+                <field name="name"/>
+                <field name="code"/>
+                <filter name="fabric" string="Fabric" domain="[('type','=','fabric')]"/>
+                <filter name="jeans" string="Jeans" domain="[('type', '=', 'jeans')]"/>
+                <filter name="cotton" string="Cotton" domain="[('type', '=', 'cotton')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_material_tree" model="ir.ui.view">
+        <field name="name">material.tree</field>
+        <field name="model">material</field>
+        <field name="arch" type="xml">
+            <tree string="Material">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type"/>
+                <field name="buy_price"/>
+                <field name="related_supplier_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_material_form" model="ir.ui.view">
+        <field name="name">material.from</field>
+        <field name="model">material</field>
+        <field name="arch" type="xml">
+            <form string="Material">
+                <group>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type"/>
+                    <field name="buy_price"/>
+                    <field name="related_supplier_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_material" model="ir.actions.act_window">
+        <field name="name">Material</field>
+        <field name="res_model">material</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_material_tree"/>
+        <field name="search_view_id" ref="view_material_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a material
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Material" id="menu_material">
+        <menuitem id="menu_action_material" action="action_material"/>
+    </menuitem>
+
+</odoo>
